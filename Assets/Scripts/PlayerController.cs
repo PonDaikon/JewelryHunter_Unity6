@@ -2,17 +2,22 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    [Header("プレイヤーの能力値")]
+    public float speed = 3.0f; //プレイヤーのスピードを調整
+    public float jumpPower = 9.0f;
+
+    [Header("地面判定の説明レイヤー")]
+    public LayerMask groundLayer; //地面レイヤーを指名するための変数
+
+
+
     Rigidbody2D rbody; //PlayerについているRigidbody2Dを扱うための変数
 
     float axisH; //入力の方向を記憶するための変数
-    public float speed = 3.0f; //プレイヤーのスピードを調整
-
-    public float jumpPower = 9.0f;
     bool goJump = false; //ジャンプフラグ（true:真on false:偽off）
 
     bool onGround = false; //地面にいるかどうかの判定（地面にいる:true 地面にいない:false）
 
-    public LayerMask groundLayer; //地面レイヤーを指名するための変数
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -32,11 +37,11 @@ public class PlayerController : MonoBehaviour
             //右を向く
             transform.localScale = new Vector3(1, 1, 1);
         }
-        else if (axisH < 0) 
-            {
+        else if (axisH < 0)
+        {
             transform.localScale = new Vector3(-1, 1, 1);
 
-            }
+        }
         //GetButtonDownメソッド→引数に指定したボタンが押されたらtrueを返す、押されていなければfalseを返す
         if (Input.GetButtonDown("Jump"))
         {
@@ -55,7 +60,7 @@ public class PlayerController : MonoBehaviour
         onGround = Physics2D.CircleCast(
             transform.position, //発射位置＝プレイヤーの位置（基準点）
             0.2f, //調査する円の半径
-            new Vector2(0,1.0f), //発射方向
+            new Vector2(0, 1.0f), //発射方向
             0, //発射距離
             groundLayer //対象となるレイヤー情報
 
@@ -64,10 +69,11 @@ public class PlayerController : MonoBehaviour
         //Velocityに値を代入
         rbody.linearVelocity = new Vector2(axisH * speed, rbody.linearVelocity.y);
 
-        if (goJump == true)
-        { 
+        //ジャンプフラグが立ったら
+        if (goJump)
+        {
             //ジャンプさせる→プレイヤーを上に押し出す
-            rbody.AddForce(new Vector2 (0, jumpPower), ForceMode2D.Impulse);
+            rbody.AddForce(new Vector2(0, jumpPower), ForceMode2D.Impulse);
             goJump = false; //フラグをOFFに戻す
         }
 
@@ -76,7 +82,10 @@ public class PlayerController : MonoBehaviour
 
     //ジャンプボタンが押されたときに呼び出されるメソッド
     void Jump()
-    { 
-    goJump= true; //ジャンプフラグをon  
+    {
+        if (onGround)
+        {
+            goJump = true; //ジャンプフラグをon
+        }
     }
 }
