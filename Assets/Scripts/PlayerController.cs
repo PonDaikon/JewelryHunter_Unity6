@@ -33,6 +33,11 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //ゲームステータスがplayingでないなら
+        if (GameManager.gameState != "playing")
+        {
+            return; //その1フレームを強制終了
+        }
         //Velocityの元となる値の取得（右なら1.0f、左なら-1.0f、なにもなければ0)
         axisH = Input.GetAxisRaw("Horizontal");
 
@@ -60,6 +65,13 @@ public class PlayerController : MonoBehaviour
     //1秒間に50回(50fps)繰り返すように制御しながら行う繰り返しメソッド
     void FixedUpdate()
     {
+
+        //ゲームステータスがplayingでないなら
+        if (GameManager.gameState != "playing")
+        {
+            return; //その1フレームを強制終了
+        }
+
         //地面判定をサークルキャストで行って、その結果を変数onGroundに代入
         onGround = Physics2D.CircleCast(
             transform.position, //発射位置＝プレイヤーの位置（基準点）
@@ -104,5 +116,33 @@ public class PlayerController : MonoBehaviour
             goJump = true; //ジャンプフラグをon
             animator.SetTrigger("Jump");
         }
+    }
+
+    //isTrigger特性を持っているColliderとぶつかったら処理される
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        //if (collision.gameObject.tag == "Goal")
+        if (collision.gameObject.CompareTag("Goal"))
+        {
+            GameManager.gameState = "gameClear";
+            Debug.Log("ゴールに接触した");
+            Goal();
+        }
+
+    }
+
+    //ゴールした時のメソッド
+    public void Goal()
+    {
+        animator.SetBool("Clear", true); //クリアアニメに切り替え
+        GameStop(); //プレイヤーのVelocityを止めるメソッド
+
+    }
+
+    void GameStop()
+    {
+        //速度を0にリセット
+        //rbody.linearVelocity = new Vector2 (0, 0);
+        rbody.linearVelocity = Vector2.zero;
     }
 }
