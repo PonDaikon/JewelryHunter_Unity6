@@ -31,6 +31,9 @@ public class UIController : MonoBehaviour
             mainImage.SetActive (true); //メイン画像の復活
             //メイン画像オブジェクトのImageコンポーネントが所持している変数spriteに"ステージクリア"の絵を代入
             mainImage.GetComponent<Image>().sprite = gameClearSprite;
+
+            //リトライボタンオブジェクトのButtonコンポーネントが所持している変数interactableを無効にする（ボタン機能を無効）using UnityEngine. UIが書かれていないと使用不可
+            retryButton.GetComponent<Button>().interactable = false;
         
         }
 

@@ -124,7 +124,7 @@ public class PlayerController : MonoBehaviour
         //if (collision.gameObject.tag == "Goal")
         if (collision.gameObject.CompareTag("Goal"))
         {
-            GameManager.gameState = "gameClear";
+            GameManager.gameState = "gameclear";
             Debug.Log("ゴールに接触した");
             Goal();
         }
