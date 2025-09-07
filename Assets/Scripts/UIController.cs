@@ -1,49 +1,43 @@
 using UnityEngine;
-using UnityEngine. UI;
+using UnityEngine.UI;
 
 public class UIController : MonoBehaviour
 {
+    public GameObject mainImage; //ã‚¢ãƒŠã‚¦ãƒ³ã‚¹ã‚’ã™ã‚‹ç”»åƒ
+    public GameObject buttonPanel; //ãƒœã‚¿ãƒ³ã‚’ã‚°ãƒ«ãƒ¼ãƒ—åŒ–ã—ã¦ã„ã‚‹ãƒ‘ãƒãƒ«
 
-    public GameObject mainImage; //ƒAƒiƒEƒ“ƒX‚ğ‚·‚é‰æ‘œ
-    public GameObject buttonPanel; //ƒ{ƒ^ƒ“‚ğƒOƒ‹[ƒv‰»‚µ‚Ä‚¢‚éƒpƒlƒ‹
+    public GameObject retryButton; //ãƒªãƒˆãƒ©ã‚¤ãƒœã‚¿ãƒ³
+    public GameObject nextButton; //ãƒã‚¯ã‚¹ãƒˆãƒœã‚¿ãƒ³
 
-    public GameObject retryButton; //ƒŠƒgƒ‰ƒCƒ{ƒ^ƒ“
-    public GameObject nextButton; //ƒlƒNƒXƒgƒ{ƒ^ƒ“
-
-    public Sprite gameClearSprite; //ƒQ[ƒ€ƒNƒŠƒA‚ÌŠG
-
+    public Sprite gameClearSprite; //ã‚²ãƒ¼ãƒ ã‚¯ãƒªã‚¢ã®çµµ
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        buttonPanel.SetActive(false); //‘¶İ‚ğ”ñ•\¦
-        //ŠÔ·‚Åƒƒ\ƒbƒh‚ğ”­“®‚·‚é
-        Invoke("InactiveImage", 1.0f);
+        buttonPanel.SetActive(false); //å­˜åœ¨ã‚’éè¡¨ç¤º
+
+        //æ™‚é–“å·®ã§ãƒ¡ã‚½ãƒƒãƒ‰ã‚’ç™ºå‹•
+        Invoke("InactiveImage",1.0f);
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (GameManager.gameState == "gameclear") 
+        if(GameManager.gameState == "gameclear")
         {
-            buttonPanel.SetActive (true); //ƒ{ƒ^ƒ“ƒpƒlƒ‹‚Ì•œŠˆ
-            mainImage.SetActive (true); //ƒƒCƒ“‰æ‘œ‚Ì•œŠˆ
-            //ƒƒCƒ“‰æ‘œƒIƒuƒWƒFƒNƒg‚ÌImageƒRƒ“ƒ|[ƒlƒ“ƒg‚ªŠ‚µ‚Ä‚¢‚é•Ï”sprite‚É"ƒXƒe[ƒWƒNƒŠƒA"‚ÌŠG‚ğ‘ã“ü
+            buttonPanel.SetActive(true); //ãƒœã‚¿ãƒ³ãƒ‘ãƒãƒ«ã®å¾©æ´»
+            mainImage.SetActive(true); //ãƒ¡ã‚¤ãƒ³ç”»åƒã®å¾©æ´»
+            //ãƒ¡ã‚¤ãƒ³ç”»åƒã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®Imageã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆãŒæ‰€æŒã—ã¦ã„ã‚‹å¤‰æ•°sprite ã« â€ã‚¹ãƒ†ãƒ¼ã‚¸ã‚¯ãƒªã‚¢â€ã®çµµã‚’ä»£å…¥
             mainImage.GetComponent<Image>().sprite = gameClearSprite;
-
-            //ƒŠƒgƒ‰ƒCƒ{ƒ^ƒ“ƒIƒuƒWƒFƒNƒg‚ÌButtonƒRƒ“ƒ|[ƒlƒ“ƒg‚ªŠ‚µ‚Ä‚¢‚é•Ï”interactable‚ğ–³Œø‚É‚·‚éiƒ{ƒ^ƒ“‹@”\‚ğ–³Œøjusing UnityEngine. UI‚ª‘‚©‚ê‚Ä‚¢‚È‚¢‚Æg—p•s‰Â
+            //ãƒªãƒˆãƒ©ã‚¤ãƒœã‚¿ãƒ³ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®Buttonã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆãŒæ‰€æŒã—ã¦ã„ã‚‹å¤‰æ•°interactableã‚’ç„¡åŠ¹ï¼ˆãƒœã‚¿ãƒ³æ©Ÿèƒ½ã‚’ç„¡åŠ¹ï¼‰
             retryButton.GetComponent<Button>().interactable = false;
-        
         }
-
     }
 
+    //ãƒ¡ã‚¤ãƒ³ç”»åƒã‚’éè¡¨ç¤ºã™ã‚‹ãŸã‚ã ã‘ã®ãƒ¡ã‚½ãƒƒãƒ‰
     void InactiveImage()
     {
         mainImage.SetActive(false);
     }
-
-
 }
-
