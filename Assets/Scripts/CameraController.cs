@@ -29,45 +29,49 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //いったんプレイヤーのX座標、Y座標の位置を変数に取得
-        x = player.transform.position.x;
-        y = player.transform.position.y;
+        if (player != null)
+        {
 
-        //もしも横の強制スクロールフラグが立っていたら
-        if (isScrollX)
-        {
-            //前の座標に変数分だけ加算した座標
-            x = transform.position.x + (scrollSpeedX * Time.deltaTime);
-        }
+            //いったんプレイヤーのX座標、Y座標の位置を変数に取得
+            x = player.transform.position.x;
+            y = player.transform.position.y;
 
-        //もしも左右の限界までプレイヤーが移動したら
-        if (x < leftLimit)
-        {
-            x = leftLimit;
-        }
-        else if (x > rightLimit)
-        {
-            x = rightLimit;
-        }
+            //もしも横の強制スクロールフラグが立っていたら
+            if (isScrollX)
+            {
+                //前の座標に変数分だけ加算した座標
+                x = transform.position.x + (scrollSpeedX * Time.deltaTime);
+            }
 
-        //もしも縦の強制スクロールフラグが立っていたら
-        if (isScrollY)
-        {
-            //前の座標に変数分だけ加算した座標
-            y = transform.position.y + (scrollSpeedY * Time.deltaTime);
-        }
+            //もしも左右の限界までプレイヤーが移動したら
+            if (x < leftLimit)
+            {
+                x = leftLimit;
+            }
+            else if (x > rightLimit)
+            {
+                x = rightLimit;
+            }
 
-        //もしも上下の限界までプレイヤーが移動したら
-        if (y < bottomLimit)
-        {
-            y = bottomLimit;
-        }
-        else if (y > topLimit)
-        {
-            y = topLimit;
-        }
+            //もしも縦の強制スクロールフラグが立っていたら
+            if (isScrollY)
+            {
+                //前の座標に変数分だけ加算した座標
+                y = transform.position.y + (scrollSpeedY * Time.deltaTime);
+            }
 
-        //取り決めた各変数x,y,zの値をカメラのポジションとする
-        transform.position = new Vector3(x, y, z);
+            //もしも上下の限界までプレイヤーが移動したら
+            if (y < bottomLimit)
+            {
+                y = bottomLimit;
+            }
+            else if (y > topLimit)
+            {
+                y = topLimit;
+            }
+
+            //取り決めた各変数x,y,zの値をカメラのポジションとする
+            transform.position = new Vector3(x, y, z);
+        }
     }
 }
