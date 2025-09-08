@@ -538,6 +538,7 @@ GameObject:
   - component: {fileID: 361261075}
   - component: {fileID: 361261074}
   - component: {fileID: 361261078}
+  - component: {fileID: 361261079}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -647,6 +648,22 @@ MonoBehaviour:
   nextButton: {fileID: 648604003}
   gameClearSprite: {fileID: 21300000, guid: 560a4ec14389e96458b3b544907b0437, type: 3}
   gameOverSprite: {fileID: 21300000, guid: 8c724e7c9c31dc4498fbc559e7c0a1ad, type: 3}
+--- !u!114 &361261079
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 361261073}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a725e7b9de1f4e745b06b675f29ce440, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isCountDown: 1
+  gameTime: 10
+  isTimeOver: 0
+  displayTime: 0
 --- !u!1 &383754230
 GameObject:
   m_ObjectHideFlags: 0
