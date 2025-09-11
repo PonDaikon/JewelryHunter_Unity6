@@ -1,23 +1,21 @@
 using UnityEngine;
-using UnityEngine.Audio;
 
-public class CanonController : MonoBehaviour
+public class CannonController : MonoBehaviour
 {
     [Header("生成プレハブ/時間/速度/範囲")]
-    public GameObject objPrefab; //発生させるPrefabデータ
-    public float delayTime = 3.0f; //遅延時間
-    public float fireSpeed = 4.0f; //発射速度
-    public float length = 8.0f; //範囲
+    public GameObject objPrefab;            //発生させるPrefabデータ
+    public float delayTime = 3.0f;          //遅延時間
+    public float fireSpeed = 4.0f;          //発射速度
+    public float length = 8.0f;             //範囲
 
     [Header("発射口")]
     public Transform gateTransform;
 
-    GameObject player; //プレイヤー
-    float passedTimes = 0; //経過時間
+    GameObject player;                      //プレイヤー
+    float passedTimes = 0;                  //経過時間
 
-    AudioSourse audioSource;
+    AudioSource audioSource;
     public AudioClip se_Shoot;
-
 
     //距離チェック
     bool CheckLength(Vector2 targetPos)
@@ -29,11 +27,9 @@ public class CanonController : MonoBehaviour
             ret = true;
         }
         return ret;
-   
     }
 
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    // Start is called before the first frame update
     void Start()
     {
         //プレイヤーを取得
