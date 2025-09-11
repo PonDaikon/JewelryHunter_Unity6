@@ -14,6 +14,7 @@ public class UIController : MonoBehaviour
     public Sprite gameOverSprite; //ゲームクリアの絵
     TimeController timeCnt; // TimeController.csの参照
     public GameObject TimeText; //ゲームオブジェクトであるTimeText
+    public GameObject ScoreText; //スコアテキスト
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -65,4 +66,11 @@ public class UIController : MonoBehaviour
     {
         mainImage.SetActive(false);
     }
+
+    void UpdateScore()
+    {
+        int score = GameManager.stageScore + GameManager.totalScore;
+        ScoreText.GetComponent<TextMeshProUGUI>().text = score.ToString();
+    }
+
 }
