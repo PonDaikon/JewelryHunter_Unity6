@@ -14,7 +14,7 @@ public class CannonController : MonoBehaviour
     GameObject player;                      //プレイヤー
     float passedTimes = 0;                  //経過時間
 
-    AudioSource audioSource;
+    AudioSource audio;
     public AudioClip se_Shoot;
 
     //距離チェック
@@ -35,7 +35,7 @@ public class CannonController : MonoBehaviour
         //プレイヤーを取得
         player = GameObject.FindGameObjectWithTag("Player");
 
-        audioSource = GetComponent<AudioSource>();
+        audio = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -62,7 +62,7 @@ public class CannonController : MonoBehaviour
                 Vector2 v = new Vector2(x, y) * fireSpeed;
                 rbody.AddForce(v, ForceMode2D.Impulse);
 
-                audioSource.PlayOneShot(se_Shoot);
+                audio.PlayOneShot(se_Shoot);
             }
         }
     }

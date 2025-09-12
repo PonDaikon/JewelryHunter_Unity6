@@ -16,17 +16,23 @@ public class PlayerController : MonoBehaviour
     bool goJump = false; //ジャンプフラグ（true:真on、false:偽off)
     bool onGround = false; //地面にいるかどうかの判定（地面にいる：true、地面にいない：false）
 
+    AudioSource audio;
+    public AudioClip se_Jump;
+    public AudioClip se_ItemGet;
+    public AudioClip se_Damage;
+
     void Start()
     {
         rbody = GetComponent<Rigidbody2D>(); //Playerについているコンポーネント情報を取得
 
         animator = GetComponent<Animator>();//Animatorコンポーネントの情報を代入
+        audio = GetComponent<AudioSource>();
     }
 
     void Update()
     {
         //ゲームのステータスがplayingでないなら
-        if(GameManager.gameState != "playing")
+        if (GameManager.gameState != "playing")
         {
             return; //その1フレームを強制終了
         }
@@ -38,12 +44,12 @@ public class PlayerController : MonoBehaviour
         if (axisH > 0)
         {
             //右を向く
-            transform.localScale = new Vector3(1,1,1);
+            transform.localScale = new Vector3(1, 1, 1);
         }
         else if (axisH < 0)
         {
             //左を向く
-            transform.localScale = new Vector3(-1,1,1);
+            transform.localScale = new Vector3(-1, 1, 1);
         }
 
         //GetButtonDownメソッド→引数に指定したボタンが押されたらtrueを返す、押されていなければfalseを返す
@@ -76,23 +82,23 @@ public class PlayerController : MonoBehaviour
         rbody.linearVelocity = new Vector2(axisH * speed, rbody.linearVelocity.y);
 
         //ジャンプフラグが立ったら
-        if(goJump)
+        if (goJump)
         {
             //ジャンプさせる→プレイヤーを上に押し出す
-            rbody.AddForce(new Vector2(0,jumpPower),ForceMode2D.Impulse);
+            rbody.AddForce(new Vector2(0, jumpPower), ForceMode2D.Impulse);
             goJump = false; //フラグをOFFに戻す
         }
 
         //if (onGround) //地面の上にいる時
         //{
-            if(axisH == 0) //左右が押されていない
-            {
-                animator.SetBool("Run",false); //Idleアニメに切り替え
-            }
-            else //左右が押されている
-            {
-                animator.SetBool("Run", true); //Runアニメに切り替え
-            }
+        if (axisH == 0) //左右が押されていない
+        {
+            animator.SetBool("Run", false); //Idleアニメに切り替え
+        }
+        else //左右が押されている
+        {
+            animator.SetBool("Run", true); //Runアニメに切り替え
+        }
         //} 
     }
 
@@ -101,6 +107,8 @@ public class PlayerController : MonoBehaviour
     {
         if (onGround)
         {
+
+            audio.PlayOneShot(se_Jump);
             goJump = true; //ジャンプフラグをON
             animator.SetTrigger("Jump");
         }
@@ -120,14 +128,17 @@ public class PlayerController : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Dead"))
         {
+
+            audio.PlayOneShot(se_Damage);
             GameManager.gameState = "gameover";
             Debug.Log("ゲームオーバー");
             GameOver();
-        
+
         }
         //アイテムに触れたらステージスコアに加算
         if (collision.gameObject.CompareTag("ItemScore"))
         {
+            audio.PlayOneShot(se_ItemGet);
             GameManager.stageScore += collision.gameObject.GetComponent<ItemData>().value;
             Destroy(collision.gameObject);
 
@@ -141,7 +152,7 @@ public class PlayerController : MonoBehaviour
     //ゴールした時のメソッド
     public void Goal()
     {
-        animator.SetBool("Clear",true); //クリアアニメに切り替え
+        animator.SetBool("Clear", true); //クリアアニメに切り替え
         GameStop();　//プレイヤーのVelocityを止めるメソッド
     }
 
@@ -150,10 +161,10 @@ public class PlayerController : MonoBehaviour
     {
         animator.SetBool("Dead", true); //デッドアニメに切り替え
         GameStop();
-        
+
         //当たり判定を無効
         GetComponent<CapsuleCollider2D>().enabled = false;
-        
+
         //上に飛び跳ねさせる
         rbody.AddForce(new Vector2(0, 11), ForceMode2D.Impulse);
 
