@@ -57,7 +57,7 @@ public class TimeController : MonoBehaviour
                 {
                     displayTime = 0; //0表記に統一
                     isTimeOver = true; //停止タイマーをon
-                    GameManager.gameState = "gameover";
+                    //GameManager.gameState = "gameover";
                 }
             }
             else //カウントアップ形式だった場青
@@ -68,7 +68,7 @@ public class TimeController : MonoBehaviour
                     //ユーザーに見せたい時間を基準時間にする
                     displayTime = gameTime;
                     isTimeOver = true; //停止フラグをon
-                    GameManager.gameState = "gameover";
+                    //GameManager.gameState = "gameover";
                 
                 }
 
